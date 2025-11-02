@@ -7,8 +7,11 @@ using Assesment.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+//using DotNetEnv;    
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Env.Load();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -40,6 +43,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddCors(options =>
@@ -55,6 +59,9 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IRecommendationService, RecommendationService>();
+builder.Services.AddHttpClient<OpenAiService>();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => { })
     .AddEntityFrameworkStores<ApplicationDbContext>()

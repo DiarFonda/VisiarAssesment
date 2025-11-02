@@ -1,6 +1,14 @@
 namespace Assesment.Application.DTOs
 {
 
+    public record RecommendedDoctorDto(
+    int DoctorId,
+    string Name,
+    string Specialization,
+    double Score,
+    string MatchReason
+     );
+
     public record CreateAppointmentRequest(
         int DoctorId,
         DateTime DateTime,
