@@ -44,5 +44,18 @@ namespace Assesment.Infrastructure.Services
 
             return appointment;
         }
+
+        public async Task<bool> DeleteAsync(int appointmentId, string patientId)
+        {
+            var appointment = await _context.Appointments
+                .FirstOrDefaultAsync(a => a.Id == appointmentId && a.PatientId == patientId);
+
+            if (appointment == null)
+                return false;
+
+            _context.Appointments.Remove(appointment);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

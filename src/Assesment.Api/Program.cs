@@ -7,11 +7,11 @@ using Assesment.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-//using DotNetEnv;    
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Env.Load();
+Env.Load();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -42,7 +42,6 @@ builder.Services.AddAuthentication(options =>
             Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
 });
-
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 

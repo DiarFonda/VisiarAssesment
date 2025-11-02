@@ -20,7 +20,7 @@ namespace Assesment.Infrastructure.Services
         {
             _httpClient = httpClient;
             _logger = logger;
-            _apiKey = configuration["AppSettings:OpenAiApiKey"] ?? throw new Exception("OpenAI API key not found");
+            _apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY") ?? throw new Exception("OpenAI API key not found");
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_apiKey}");
         }
 

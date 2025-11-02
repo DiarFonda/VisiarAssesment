@@ -45,5 +45,19 @@ namespace Assesment.API.Controllers
             var appointment = await _appointmentService.CreateAsync(userId, userName, request);
             return Created($"/api/appointments/{appointment.Id}", appointment);
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAppointment(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized("User ID not found in token.");
+
+            var deleted = await _appointmentService.DeleteAsync(id, userId);
+
+            if (!deleted)
+                return NotFound("Appointment not found or you don't have permission to delete it.");
+
+            return NoContent();
+        }
     }
 }
