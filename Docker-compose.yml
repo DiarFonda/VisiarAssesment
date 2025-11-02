@@ -1,0 +1,33 @@
+
+services:
+  backend:
+    image: mcr.microsoft.com/dotnet/sdk:9.0
+    ports:
+      - "5149:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/healthcare.db
+    volumes:
+      - .:/app 
+      - ./data:/app/data
+    working_dir: /app
+    command: dotnet run --project src/Assesment.Api --urls=http://0.0.0.0:80
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:5149
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
