@@ -7,6 +7,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Data Source=/app/data/healthcare.db
+    env_file:
+      - ./src/assesment.api/.env
     volumes:
       - .:/app 
       - ./data:/app/data

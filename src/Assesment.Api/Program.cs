@@ -7,11 +7,11 @@ using Assesment.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using DotNetEnv;
+using dotenv.net;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Env.Load();
+DotEnv.Load();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
